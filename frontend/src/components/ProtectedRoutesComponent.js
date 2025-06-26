@@ -1,6 +1,7 @@
 //这是一个 路由守卫组件（Protected Route），用来控制哪些页面需要登录（即需要认证）才能访问。
 import { Outlet, Navigate } from "react-router-dom"; //而 <Outlet /> 的意思就是：“我留一个位置出来，把下面那些子路由（profile/orders）显示在我这里。
-import UserChatComponent from "./user/UserChatComponent";
+import UserChatComponent from '../pages/user/UserChatComponent';
+
 
 const ProtectedRoutesComponent = ({admin}) => {
   let auth = false;
@@ -16,7 +17,7 @@ const ProtectedRoutesComponent = ({admin}) => {
     ) : (
       <Navigate to="/login" />
     );
-  }
+  }//逻辑 2
 };
 
 export default ProtectedRoutesComponent
