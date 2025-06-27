@@ -41,15 +41,15 @@ const HeaderComponent = () => {
                         </InputGroup>
 
                     </Nav>
-                    <Nav>{/*给管理员一个入口，跳转到 /admin/orders 管理后台页面*//} {/*用户导航逻辑 4*/}
+                    <Nav>{/*给管理员一个入口，跳转到 /admin/orders 管理后台页面 用户导航逻辑 4*/}
                         <LinkContainer to="/admin/orders"> 
                             <Nav.Link>
                                 Admin
-                                <span className="position-absolute top-1 start-10 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                                <span className="position-absolute top-1 start-10 translate-middle p-2 bg-danger border border-light rounded-circle"></span>{/*<span> 是个红色圆形徽章，用来做视觉标识（比如提醒或通知）*/}
                             </Nav.Link>
                         </LinkContainer>
 
-                        {/*用户下拉菜单*/}
+                        {/*用户下拉菜单 5 下拉组件的区别*/}
                         <NavDropdown title="John Doe" id="collasible-nav-dropdown">
                             <NavDropdown.Item eventKey="/user/my-orders" as={Link} to="/user/my-orders">My orders</NavDropdown.Item>
                             <NavDropdown.Item eventKey="/user" as={Link} to="/user">My profile </NavDropdown.Item>
