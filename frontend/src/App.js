@@ -34,10 +34,16 @@ import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminOrderDetailsPage from "./pages/admin/AdminOrderDetailsPage";
 import AdminChatsPage from "./pages/admin/AdminChatsPage";
 import AdminAnalyticsPage from "./pages/admin/AdminAnalyticsPage";
+import ScrollToTop from "./utils/ScrollToTop";
+//
+import UserChatComponent from "./components/user/UserChatComponent";
+
+
 
 function App() {
   return (
     <>
+    <ScrollToTop />
       <HeaderComponent />
       <Routes>
         <Route element={<RoutesWithUserChatComponent />}>
@@ -71,6 +77,7 @@ function App() {
         </Route>
       </Routes>
       <FooterComponent />
+      <UserChatComponent />
     </>
   );
 }
