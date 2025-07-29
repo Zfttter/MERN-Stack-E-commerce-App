@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // components:
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
@@ -37,11 +37,10 @@ import AdminAnalyticsPage from "./pages/admin/AdminAnalyticsPage";
 
 function App() {
   return (
-    <BrowserRouter> {/*可以包裹任何 React 元素，不仅限于 <Routes></Routes>*/}
+    <>
       <HeaderComponent />
       <Routes>
-        <Route element={<RoutesWithUserChatComponent />}>  {/*后面的子路由带path的都要被包裹在这里面 目的：1*/}
-          {/* publicly available routes: */}
+        <Route element={<RoutesWithUserChatComponent />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/product-list" element={<ProductListPage />} />
           <Route path="/product-details" element={<ProductDetailsPage />} />
@@ -49,21 +48,16 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="*" element="Page not exists 404" />
+          <Route path="*" element={<p>Page not exists 404</p>} />
         </Route>
-        {/* <Route path="/" component={HomePage} />  in previous versions of react-router-dom */}
 
-
-        {/* user protected routes: */}{/* <Route path="/" component={HomePage} />  in previous versions of react-router-dom */}
-        <Route element={<ProtectedRoutesComponent />}> {/*如果未登录，会自动跳转 /login，否则渲染 Outlet*/}
+        <Route element={<ProtectedRoutesComponent />}>
           <Route path="/user" element={<UserProfilePage />} />
           <Route path="/user/my-orders" element={<UserOrdersPage />} />
           <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
           <Route path="/user/order-details" element={<UserOrderDetailsPage />} />
         </Route>
 
-
-        {/* admin protected routes: */}
         <Route element={<ProtectedRoutesComponent admin={true} />}>
           <Route path="/admin/users" element={<AdminUsersPage />} />
           <Route path="/admin/edit-user" element={<AdminEditUserPage />} />
@@ -77,9 +71,10 @@ function App() {
         </Route>
       </Routes>
       <FooterComponent />
-    </BrowserRouter>
+    </>
   );
 }
 
 export default App;
+
 
