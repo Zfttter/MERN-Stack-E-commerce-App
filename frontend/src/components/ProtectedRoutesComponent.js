@@ -1,23 +1,37 @@
-//这是一个 路由守卫组件（Protected Route），用来控制哪些页面需要登录（即需要认证）才能访问。
-import { Outlet, Navigate } from "react-router-dom"; //而 <Outlet /> 的意思就是：“我留一个位置出来，把下面那些子路由（profile/orders）显示在我这里。
-import UserChatComponent from '../pages/user/UserChatComponent';
+import { Outlet, Navigate } from "react-router-dom";
+import UserChatComponent from "./user/UserChatComponent";
 
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import LoginPage from "../pages/LoginPage";
 
-const ProtectedRoutesComponent = ({admin}) => {
-  let auth = false;
-  if (admin) {
-    let adminAuth = true;
-    return adminAuth ? <Outlet /> : <Navigate to="/login" />;//渲染 <Outlet />，也就是你原本想访问的页面 or 渲染 <Navigate to="/login" />，自动跳转到登录页
-  } else {
-    let userAuth = true;
-    return userAuth ? (
+const ProtectedRoutesComponent = ({ admin }) => {
+  const [isAuth, setIsAuth] = useState();
+
+  useEffect(() => {
+     axios.get("/api/get-token").then(function (data) {
+         if (data.data.token) {
+             setIsAuth(data.data.token);
+         }
+         return isAuth;
+     }) 
+  }, [isAuth])
+
+  if (isAuth === undefined) return <LoginPage />;
+
+  return isAuth && admin && isAuth !== "admin" ? (
+       <Navigate to="/login" />
+  ) : isAuth && admin ? (
+      <Outlet />
+  ) : isAuth && !admin ? (
       <>
-        <UserChatComponent /> <Outlet />
+      <UserChatComponent />
+      <Outlet />
       </>
-    ) : (
-      <Navigate to="/login" />
-    );
-  }//逻辑 2
+  ) : (
+       <Navigate to="/login" />
+  )
 };
 
-export default ProtectedRoutesComponent
+export default ProtectedRoutesComponent;
+
